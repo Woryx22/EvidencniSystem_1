@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EvidencniSystem.Odberatel_Page"
+             Title="Odberatel_Page">
+    <ScrollView>
+        <VerticalStackLayout
+        Spacing="25"
+        Padding="30,0"
+        VerticalOptions="Center">
+
+            <Entry x:Name="forName" Placeholder="Name" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forSurname" Placeholder="Surname" WidthRequest="250" HorizontalOptions="Center"/>
+            <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>
+
+            <ListView x:Name="lst" 
+            WidthRequest="250"
+            Header="Studenti" 
+            HorizontalOptions="Center" 
+            BackgroundColor="LightGrey"
+            />
+
+            <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
+            <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
