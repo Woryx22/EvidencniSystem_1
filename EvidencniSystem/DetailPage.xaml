@@ -11,5 +11,6 @@
             Text="{Binding Vystup}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
     </VerticalStackLayout>
 </ContentPage>
