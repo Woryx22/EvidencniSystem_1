@@ -11,9 +11,11 @@ namespace EvidencniSystem.Data
         }
 
         public DbSet<Odberatel> Odberatele { get; set; }
+
+        public DbSet<VydaneFaktury> VydaneFaktury_ { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source= Soubor.db"); // naše SQLite databáze ve složce BIN
+            optionsBuilder.UseSqlite("Data Source= db.db"); // naše SQLite databáze ve složce BIN
         }
     }
 }

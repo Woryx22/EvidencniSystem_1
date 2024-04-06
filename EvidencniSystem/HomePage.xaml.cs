@@ -15,4 +15,9 @@ public partial class HomePage : ContentPage
     {
         Navigation.PushAsync(new Odberatel_Page());
     }
+
+    private void Vydane_faktury_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new VydaneFaktury_Page());
+    }
 }
