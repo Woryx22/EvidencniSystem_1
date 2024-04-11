@@ -10,6 +10,9 @@
      VerticalOptions="Center">
 
             <Entry x:Name="forName" Placeholder="Name" WidthRequest="250" HorizontalOptions="Center"/>
+            <Picker x:Name="picker"
+                Title="Select a monkey">
+            </Picker>
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveVydaneFaktury"/>
 
             <ListView x:Name="lst2" 

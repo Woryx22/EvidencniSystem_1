@@ -14,6 +14,7 @@ public partial class VydaneFaktury_Page : ContentPage
         _context = new();
         InitializeComponent();
         lst2.ItemsSource = _context.VydaneFaktury_.ToList(); // pøipojení zdroje dat k ListView
+        picker.ItemsSource = _context.Odberatele.ToList();
     }
 
     private void SaveVydaneFaktury(object sender, EventArgs e)
