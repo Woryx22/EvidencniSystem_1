@@ -15,7 +15,8 @@ namespace EvidencniSystem.Data
         public DbSet<VydaneFaktury> VydaneFaktury_ { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source= db.db"); // naše SQLite databáze ve složce BIN
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MY.db");
+            optionsBuilder.UseSqlite($"Data Source = {path}");
         }
     }
 }
