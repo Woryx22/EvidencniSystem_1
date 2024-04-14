@@ -21,7 +21,12 @@ public partial class Odberatel_Page : ContentPage
         Odberatel newOdberatel = new()
         {
             Name = forName.Text,
-            Surname = forSurname.Text
+            State = forState.Text,
+            IC = forIC.Text,
+            DIC = forDIC.Text,
+            Street = forStreet.Text,
+            City = forCity.Text,
+            PSC = forPSC.Text
         };
 
         _context.Add(newOdberatel); // pøidá záznam do Data Setu

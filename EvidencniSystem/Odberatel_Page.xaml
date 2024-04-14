@@ -9,8 +9,15 @@
         Padding="30,0"
         VerticalOptions="Center">
 
-            <Entry x:Name="forName" Placeholder="Name" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forSurname" Placeholder="Surname" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forName" Placeholder="Firma/Jméno" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forState" Placeholder="Stát" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forIC" Placeholder="IČ" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forDIC" Placeholder="DIČ" WidthRequest="250" HorizontalOptions="Center"/>
+
+            <Entry x:Name="forStreet" Placeholder="Ulice" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forCity" Placeholder="Město" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forPSC" Placeholder="PSČ" WidthRequest="250" HorizontalOptions="Center"/>
+
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>
 
             <ListView x:Name="lst" 

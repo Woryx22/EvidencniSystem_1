@@ -18,7 +18,7 @@ public partial class DetailPage : ContentPage
 
         if (s != null)
         {
-            Vystup = $"Odberatel s Id {s.Id} jménem {s.Name} a pøijmením {s.Surname} ";
+            Vystup = $"Odberatel s Id {s.Id} jménem {s.Name} ";
         }
         InitializeComponent();
         BindingContext = this;

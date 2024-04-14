@@ -5,11 +5,21 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public string Surname { get; set; }
+        public string State { get; set; }
+
+        public string IC { get; set; }
+
+        public string DIC { get; set; }
+
+        public string Street { get; set; }
+
+        public string City { get; set; }
+
+        public string PSC { get; set; }
 
         public override string ToString()
         {
-            return $"{Name} {Surname}";
+            return $"{Name} {State}";
         }
     }
 }
