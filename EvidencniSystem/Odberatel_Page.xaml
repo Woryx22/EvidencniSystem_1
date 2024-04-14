@@ -9,14 +9,30 @@
         Padding="30,0"
         VerticalOptions="Center">
 
-            <Entry x:Name="forName" Placeholder="Firma/Jméno" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forState" Placeholder="Stát" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forIC" Placeholder="IČ" WidthRequest="250" HorizontalOptions="Center"/>
+            <StackLayout WidthRequest="250" HorizontalOptions="Center" Spacing="10">
+                <Label>Jméno/Firma:</Label>
+                <Entry x:Name="forName"/>
+                <Label>Stát:</Label>
+                <Entry x:Name="forState"/>
+                <Label>IČ:</Label>
+                <Entry x:Name="forIC"/>
+                <Label>DIČ:</Label>
+                <Entry x:Name="forDIC"/>
+                <Label>Ulice:</Label>
+                <Entry x:Name="forStreet"/>
+                <Label>Město:</Label>
+                <Entry x:Name="forCity"/>
+                <Label>PSČ:</Label>
+                <Entry x:Name="forPSC"/>
+            </StackLayout>
+
+            
+            <!--<Entry x:Name="forIC" Placeholder="IČ" WidthRequest="250" HorizontalOptions="Center"/>
             <Entry x:Name="forDIC" Placeholder="DIČ" WidthRequest="250" HorizontalOptions="Center"/>
 
             <Entry x:Name="forStreet" Placeholder="Ulice" WidthRequest="250" HorizontalOptions="Center"/>
             <Entry x:Name="forCity" Placeholder="Město" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forPSC" Placeholder="PSČ" WidthRequest="250" HorizontalOptions="Center"/>
+            <Entry x:Name="forPSC" Placeholder="PSČ" WidthRequest="250" HorizontalOptions="Center"/>-->
 
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>
 

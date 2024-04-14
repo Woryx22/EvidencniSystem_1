@@ -9,18 +9,36 @@
      Padding="30,0"
      VerticalOptions="Center">
 
-            <Entry x:Name="forName" Placeholder="Name" WidthRequest="250" HorizontalOptions="Center"/>
-            <Picker x:Name="picker"
-                Title="Select a monkey">
-            </Picker>
+            <StackLayout Spacing="10" WidthRequest="250" HorizontalOptions="Center">
+                <Label>Odběratel:</Label>
+                <Picker x:Name="forOdberatel" WidthRequest="250"/>
+                <Label>Číslo objednávky:</Label>
+                <Entry x:Name="forCisloObjednavky"/>
+                <Label>Popis:</Label>
+                <Entry x:Name="forPopis"/>
+                <Label>Vystaveno:</Label>
+                <DatePicker x:Name="forVystaveno"/>
+                <Label>Splatnost:</Label>
+                <DatePicker x:Name="forSplatnost"/>
+                <Label>Způsob úhrady:</Label>
+                <Picker x:Name="forZpusobUhrady">
+                    <Picker.Items>
+                        <x:String>Převodem</x:String>
+                        <x:String>Kartou</x:String>
+                        <x:String>Hotově</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+            
+            
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveVydaneFaktury"/>
 
             <ListView x:Name="lst2" 
-         WidthRequest="250"
-         Header="Studenti" 
-         HorizontalOptions="Center" 
-         BackgroundColor="LightGrey"
-         />
+                WidthRequest="250"
+                Header="Studenti" 
+                HorizontalOptions="Center" 
+                BackgroundColor="LightGrey"
+                />
 
             <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
             <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
