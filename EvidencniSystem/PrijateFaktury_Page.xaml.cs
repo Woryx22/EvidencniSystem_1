@@ -63,7 +63,7 @@ public partial class PrijateFaktury_Page : ContentPage
     private async void Detajly(object sender, EventArgs e)
     {
         int id = (lst3.SelectedItem as PrijateFaktury).Id;
-        DetailFakturyPage dp = new(id, _context);
+        DetailPrijateFakturyPage dp = new(id, _context);
         await Navigation.PushAsync(dp);
     }
 

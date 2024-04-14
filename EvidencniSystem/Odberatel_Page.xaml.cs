@@ -54,15 +54,6 @@ public partial class Odberatel_Page : ContentPage
             refresh();
         }
     }
-
-    private async void Detajly(object sender, EventArgs e)
-    {
-        int id = (lst.SelectedItem as Odberatel).Id;
-        DetailPage dp = new(id, _context);
-        await Navigation.PushAsync(dp);
-    }
-
-
     void refresh()
     {
         lst.ItemsSource = null;
