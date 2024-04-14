@@ -19,7 +19,7 @@
 
         public override string ToString()
         {
-            return $"{Name} {State}";
+            return $"Jméno/Firma:{Name}, Stát:{State}, IČ:{IC}, DIČ:{DIC}, Sídlo:{Street}, {PSC}, {City}";
         }
     }
 }

@@ -26,19 +26,11 @@
                 <Entry x:Name="forPSC"/>
             </StackLayout>
 
-            
-            <!--<Entry x:Name="forIC" Placeholder="IČ" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forDIC" Placeholder="DIČ" WidthRequest="250" HorizontalOptions="Center"/>
-
-            <Entry x:Name="forStreet" Placeholder="Ulice" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forCity" Placeholder="Město" WidthRequest="250" HorizontalOptions="Center"/>
-            <Entry x:Name="forPSC" Placeholder="PSČ" WidthRequest="250" HorizontalOptions="Center"/>-->
-
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>
 
             <ListView x:Name="lst" 
-            WidthRequest="250"
-            Header="Studenti" 
+            WidthRequest="500"
+            Header="Odběratelé" 
             HorizontalOptions="Center" 
             BackgroundColor="LightGrey"
             />
