@@ -18,8 +18,18 @@ public partial class DetailFakturyPage : ContentPage
 
         if (f != null)
         {
-            Vystup = $"Faktura s Id {f.Id}\n" +
-                     $"Jménem {f.Odberatel} ";
+            Vystup = $"Odbìratel:  {f.Odberatel.Name}\n" +
+                     $"IÈ:  {f.Odberatel.IC}\n" +
+                     $"DIÈ:  {f.Odberatel.DIC}\n" +
+                     $"Stát:  {f.Odberatel.State}\n" +
+                     $"Sídlo:  {f.Odberatel.Street}, {f.Odberatel.PSC}, {f.Odberatel.City}\n" +
+                     $"Èíslo objednávky:  {f.CisloObjednavky}\n" +
+                     $"Popis:  {f.Popis}\n\n" +
+                     $"Vystaveno:  {f.Vystaveno}\n" +
+                     $"Splatnost:  {f.Splatnost}\n\n" +
+                     $"Položky:  {f.Polozky}, Množství:  {f.Mnozstvi}, Celková cena:  {f.Celkovacena}\n" +
+                     $"Zpùson úhrady:  {f.ZpusobUhrady}";
+
         }
         InitializeComponent();
         BindingContext = this;

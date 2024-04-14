@@ -27,7 +27,7 @@ public partial class VydaneFaktury_Page : ContentPage
         {
             VydaneFaktury newVydaneFaktury = new VydaneFaktury
             {
-                Odberatel = selectedOdberatel.Name,
+                Odberatel = selectedOdberatel,
                 CisloObjednavky = forCisloObjednavky.Text,
                 Popis = forPopis.Text,
                 Vystaveno = forVystaveno.Date.ToShortDateString(),

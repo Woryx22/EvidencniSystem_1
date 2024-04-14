@@ -6,7 +6,7 @@ namespace EvidencniSystem.Models
     {
         public int Id { get; set; }
 
-        public string Odberatel { get; set; }
+        public Odberatel Odberatel { get; set; }
 
         public string CisloObjednavky { get; set; }
 
@@ -26,7 +26,7 @@ namespace EvidencniSystem.Models
 
         public override string ToString()
         {
-            return $"{Odberatel} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
+            return $"{Odberatel.Name} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
         }
     }
 }
