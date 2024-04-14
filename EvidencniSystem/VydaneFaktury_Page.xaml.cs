@@ -60,7 +60,7 @@ public partial class VydaneFaktury_Page : ContentPage
     private async void Detajly(object sender, EventArgs e)
     {
         int id = (lst2.SelectedItem as VydaneFaktury).Id;
-        DetailPage dp = new(id, _context);
+        DetailFakturyPage dp = new(id, _context);
         await Navigation.PushAsync(dp);
     }
 
