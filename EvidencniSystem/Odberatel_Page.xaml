@@ -32,7 +32,7 @@
             WidthRequest="500"
             Header="Odběratelé" 
             HorizontalOptions="Center" 
-            BackgroundColor="LightGrey"
+            BackgroundColor="DarkGray"
             />
 
             <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>

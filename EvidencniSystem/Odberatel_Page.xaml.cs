@@ -52,6 +52,7 @@ public partial class Odberatel_Page : ContentPage
         await Navigation.PushAsync(dp);
     }
 
+
     void refresh()
     {
         lst.ItemsSource = null;
