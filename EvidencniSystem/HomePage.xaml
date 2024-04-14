@@ -6,5 +6,6 @@
     <VerticalStackLayout>
         <Button Text="Odberatele" HorizontalOptions="Center" x:Name="Odberatele_Page" Clicked="Odberatele_Page_Clicked"/>
         <Button Text="Vydané faktury" HorizontalOptions="Center" x:Name="Vydane_faktury" Clicked="Vydane_faktury_Clicked"/>
+        <Button Text="Přijaté faktury" HorizontalOptions="Center" x:Name="Prijate_faktury" Clicked="Prijate_faktury_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>

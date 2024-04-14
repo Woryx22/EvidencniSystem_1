@@ -20,4 +20,9 @@ public partial class HomePage : ContentPage
     {
         Navigation.PushAsync(new VydaneFaktury_Page());
     }
+
+    private void Prijate_faktury_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new PrijateFaktury_Page());
+    }
 }

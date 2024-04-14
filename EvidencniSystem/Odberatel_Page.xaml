@@ -24,6 +24,8 @@
                 <Entry x:Name="forCity"/>
                 <Label>PSČ:</Label>
                 <Entry x:Name="forPSC"/>
+                <Label>Číslo účtu:</Label>
+                <Entry x:Name="forCislouctu"/>
             </StackLayout>
 
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>

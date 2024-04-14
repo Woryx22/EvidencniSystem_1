@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EvidencniSystem.PrijateFaktury_Page"
+             Title="PrijateFaktury">
+    <ScrollView>
+        <VerticalStackLayout
+     Spacing="25"
+     Padding="30,0"
+     VerticalOptions="Center">
+
+            <StackLayout Spacing="10" WidthRequest="250" HorizontalOptions="Center">
+                <Label>Odběratel:</Label>
+                <Picker x:Name="forOdberatel" WidthRequest="250"/>
+                <Label>Číslo objednávky:</Label>
+                <Entry x:Name="forCisloObjednavky"/>
+                <Label>Popis:</Label>
+                <Entry x:Name="forPopis"/>
+                <Label>Vystaveno:</Label>
+                <DatePicker x:Name="forVystaveno"/>
+                <Label>Splatnost:</Label>
+                <DatePicker x:Name="forSplatnost"/>
+                <Label>Způsob úhrady:</Label>
+                <Picker x:Name="forZpusobUhrady">
+                    <Picker.Items>
+                        <x:String>Převodem</x:String>
+                        <x:String>Kartou</x:String>
+                        <x:String>Hotově</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label>Položky:</Label>
+                <Entry x:Name="forPolozky"/>
+                <Label>Množství:</Label>
+                <Entry x:Name="forMnozstvi"/>
+                <Label>Celková cena:</Label>
+                <Entry x:Name="forCelkovacena"/>
+            </StackLayout>
+
+
+
+            <Button Text="Uložit" HorizontalOptions="Center" Clicked="SavePrijateFaktury"/>
+
+            <ListView x:Name="lst3" 
+                WidthRequest="250"
+                Header="Studenti" 
+                HorizontalOptions="Center" 
+                BackgroundColor="LightGrey"
+                />
+
+            <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
+            <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

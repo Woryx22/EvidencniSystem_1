@@ -1,6 +1,6 @@
 ﻿namespace EvidencniSystem.Models
 {
-    public class VydaneFaktury
+    public class PrijateFaktury
     {
         public int Id { get; set; }
 
@@ -24,7 +24,7 @@
 
         public override string ToString()
         {
-            return $"{Odberatel.Name} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
+            return $"{Odberatel.Name} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} ";
         }
     }
 }

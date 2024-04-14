@@ -17,9 +17,11 @@
 
         public string PSC { get; set; }
 
+        public string Cislouctu { get; set; }
+
         public override string ToString()
         {
-            return $"Jméno/Firma:{Name}, Stát:{State}, IČ:{IC}, DIČ:{DIC}, Sídlo:{Street}, {PSC}, {City}";
+            return $"Jméno/Firma:{Name}, Stát:{State}, IČ:{IC}, DIČ:{DIC}, Sídlo:{Street}, {PSC}, {City}, Číslo účtu:{Cislouctu}";
         }
     }
 }

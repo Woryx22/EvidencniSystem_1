@@ -14,24 +14,34 @@ public partial class Odberatel_Page : ContentPage
         _context = new();
         InitializeComponent();
         lst.ItemsSource = _context.Odberatele.ToList(); // pøipojení zdroje dat k ListView
+        forName.Text = "";
     }
 
     private void SaveOdberatel(object sender, EventArgs e)
     {
-        Odberatel newOdberatel = new()
+        if (forName.Text == "")
         {
-            Name = forName.Text,
-            State = forState.Text,
-            IC = forIC.Text,
-            DIC = forDIC.Text,
-            Street = forStreet.Text,
-            City = forCity.Text,
-            PSC = forPSC.Text
-        };
+            DisplayAlert("Chyba", "Musíte zadat jméno", "Ok");
+        }
+        else
+            {
+            Odberatel newOdberatel = new()
+            {
+                Name = forName.Text,
+                State = forState.Text,
+                IC = forIC.Text,
+                DIC = forDIC.Text,
+                Street = forStreet.Text,
+                City = forCity.Text,
+                PSC = forPSC.Text,
+                Cislouctu = forCislouctu.Text
+            };
 
-        _context.Add(newOdberatel); // pøidá záznam do Data Setu
-        _context.SaveChanges(); // uloží zmìny do databáze !!!!!!
-        refresh();
+            _context.Add(newOdberatel); // pøidá záznam do Data Setu
+            _context.SaveChanges(); // uloží zmìny do databáze !!!!!!
+            refresh();
+        }
+            
     }
 
     private void Smazat(object sender, EventArgs e)

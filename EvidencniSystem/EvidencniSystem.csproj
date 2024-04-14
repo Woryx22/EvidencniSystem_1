@@ -72,6 +72,9 @@
 	  <MauiXaml Update="Odberatel_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="PrijateFaktury_Page.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="VydaneFaktury_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
