@@ -18,9 +18,15 @@ namespace EvidencniSystem.Models
 
         public string ZpusobUhrady { get; set; }
 
+        public string Polozky { get; set; }
+
+        public string Mnozstvi { get; set; }
+
+        public string Celkovacena { get; set; }
+
         public override string ToString()
         {
-            return $"{Odberatel} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} " ;
+            return $"{Odberatel} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
         }
     }
 }

@@ -32,7 +32,10 @@ public partial class VydaneFaktury_Page : ContentPage
                 Popis = forPopis.Text,
                 Vystaveno = forVystaveno.Date.ToShortDateString(),
                 Splatnost = forSplatnost.Date.ToShortDateString(),
-                ZpusobUhrady = (string)forZpusobUhrady.SelectedItem
+                ZpusobUhrady = (string)forZpusobUhrady.SelectedItem,
+                Polozky = forPolozky.Text,
+                Mnozstvi = forMnozstvi.Text,
+                Celkovacena = forCelkovacena.Text
             };
 
             _context.Add(newVydaneFaktury);

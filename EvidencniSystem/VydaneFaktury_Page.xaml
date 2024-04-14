@@ -28,9 +28,16 @@
                         <x:String>Hotově</x:String>
                     </Picker.Items>
                 </Picker>
+                <Label>Položky:</Label>
+                <Entry x:Name="forPolozky"/>
+                <Label>Množství:</Label>
+                <Entry x:Name="forMnozstvi"/>
+                <Label>Celková cena:</Label>
+                <Entry x:Name="forCelkovacena"/>
             </StackLayout>
-            
-            
+
+
+
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveVydaneFaktury"/>
 
             <ListView x:Name="lst2" 
