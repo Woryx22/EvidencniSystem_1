@@ -10,6 +10,9 @@ using System.Diagnostics;
 using iText.Kernel.Pdf.Canvas.Draw;
 using QRCoder;
 using System.Text;
+using iText.IO.Font;
+using iText.Kernel.Font;
+using System.Globalization;
 
 namespace EvidencniSystem;
 
@@ -156,7 +159,7 @@ public partial class VydaneFaktury_Page : ContentPage
             string accountNumber = selectedFaktura.Odberatel.Cislouctu;
 
             // Construct the payment string (replace with your payment format)
-            string paymentString = $"SPD*1.0*ACC:{accountNumber}";
+            string paymentString = $"SPD*1.0*ACC:{accountNumber}*AM:{selectedFaktura.Celkovacena}";
 
             // Generate the QR code
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
@@ -181,7 +184,7 @@ public partial class VydaneFaktury_Page : ContentPage
             PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-            Paragraph header = new Paragraph("Faktura - daòový doklad")
+            Paragraph header = new Paragraph("Faktura - doklad")
                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                .SetFontSize(20);
             document.Add(header);
@@ -190,9 +193,9 @@ public partial class VydaneFaktury_Page : ContentPage
 
             // Pøidání informací o prodejci
             Paragraph sellerHeader = new Paragraph("Dodavatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerDetail = new Paragraph(selectedFaktura.Dodavatel.Name).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerAddress = new Paragraph(selectedFaktura.Dodavatel.State).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerContact = new Paragraph($"{selectedFaktura.Dodavatel.Street}, {selectedFaktura.Dodavatel.PSC}, {selectedFaktura.Dodavatel.City}").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerAddress = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.State + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerContact = new Paragraph(RemoveDiacritics($"{selectedFaktura.Dodavatel.Street}, {selectedFaktura.Dodavatel.PSC}, {selectedFaktura.Dodavatel.City}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
 
             document.Add(sellerHeader);
             document.Add(sellerDetail);
@@ -201,11 +204,11 @@ public partial class VydaneFaktury_Page : ContentPage
 
             // Pøidání informací o zákazníkovi
 
-            Paragraph customerHeader = new Paragraph("Odbìratel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerDetail = new Paragraph(selectedFaktura.Odberatel.Name).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerAddress1 = new Paragraph($"Stát:{selectedFaktura.Odberatel.State}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerAddress2 = new Paragraph($"{selectedFaktura.Odberatel.Street}, {selectedFaktura.Odberatel.PSC}, {selectedFaktura.Odberatel.City}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerContact = new Paragraph($"IÈ:{selectedFaktura.Odberatel.IC}, DIÈ:{selectedFaktura.Odberatel.DIC}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerHeader = new Paragraph("Odberatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Odberatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress1 = new Paragraph(RemoveDiacritics($"Stat:{selectedFaktura.Odberatel.State}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress2 = new Paragraph(RemoveDiacritics($"{selectedFaktura.Odberatel.Street}, {selectedFaktura.Odberatel.PSC}, {selectedFaktura.Odberatel.City}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerContact = new Paragraph(RemoveDiacritics($"IC:{selectedFaktura.Odberatel.IC}, DIC:{selectedFaktura.Odberatel.DIC}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
 
             document.Add(customerHeader);
             document.Add(customerDetail);
@@ -214,9 +217,9 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(customerContact);
 
             // Pøidání informací o faktuøe
-            Paragraph orderNo = new Paragraph($"Order No: {selectedFaktura.CisloObjednavky}").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph invoiceNo = new Paragraph($"Invoice No: {selectedFaktura.Id}").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph invoiceTimestamp = new Paragraph($"Date: {selectedFaktura.Vystaveno}").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph orderNo = new Paragraph(RemoveDiacritics($"Order No: {selectedFaktura.CisloObjednavky}")).SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceNo = new Paragraph(RemoveDiacritics($"Invoice No: {selectedFaktura.Id}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceTimestamp = new Paragraph(RemoveDiacritics($"Date: {selectedFaktura.Vystaveno}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
 
             document.Add(orderNo);
             document.Add(invoiceNo);
@@ -245,19 +248,19 @@ public partial class VydaneFaktury_Page : ContentPage
 
     }
 
-    //static string RemoveDiacritics(string input)
-    //{
-    //    string normalizedString = input.Normalize(NormalizationForm.FormD);
-    //    StringBuilder stringBuilder = new StringBuilder();
+    static string RemoveDiacritics(string input)
+    {
+        string normalizedString = input.Normalize(NormalizationForm.FormD);
+        StringBuilder stringBuilder = new StringBuilder();
 
-    //    foreach (char c in normalizedString)
-    //    {
-    //        if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-    //        {
-    //            stringBuilder.Append(c);
-    //        }
-    //    }
+        foreach (char c in normalizedString)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
 
-    //    return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-    //}
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+    }
 }
