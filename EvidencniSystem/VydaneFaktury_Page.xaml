@@ -10,6 +10,8 @@
      VerticalOptions="Center">
 
             <StackLayout Spacing="10" WidthRequest="250" HorizontalOptions="Center">
+                <Label>Dodavatel:</Label>
+                <Picker x:Name="forDodavatel" WidthRequest="250"/>
                 <Label>Odběratel:</Label>
                 <Picker x:Name="forOdberatel" WidthRequest="250"/>
                 <Label>Číslo objednávky:</Label>

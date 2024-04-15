@@ -9,6 +9,7 @@ using iText.Layout.Element;
 using System.Diagnostics;
 using iText.Kernel.Pdf.Canvas.Draw;
 using QRCoder;
+using System.Text;
 
 namespace EvidencniSystem;
 
@@ -21,18 +22,21 @@ public partial class VydaneFaktury_Page : ContentPage
         InitializeComponent();
         lst2.ItemsSource = _context.VydaneFaktury_.ToList(); // pøipojení zdroje dat k ListView
         forOdberatel.ItemsSource = _context.Odberatele.ToList();
+        forDodavatel.ItemsSource = _context.Odberatele.ToList();
     }
 
     private void SaveVydaneFaktury(object sender, EventArgs e)
     {
         // Získání vybraného objektu typu Odberatel
         Odberatel selectedOdberatel = forOdberatel.SelectedItem as Odberatel;
+        Odberatel selectedDodavatel = forDodavatel.SelectedItem as Odberatel;
 
         // Pokud je vybrán nìjaký objekt
         if (selectedOdberatel != null)
         {
             VydaneFaktury newVydaneFaktury = new VydaneFaktury
             {
+                Dodavatel = selectedDodavatel,
                 Odberatel = selectedOdberatel,
                 CisloObjednavky = forCisloObjednavky.Text,
                 Popis = forPopis.Text,
@@ -185,10 +189,10 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(ls);
 
             // Pøidání informací o prodejci
-            Paragraph sellerHeader = new Paragraph("Sold by:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerDetail = new Paragraph("Seller Company").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerAddress = new Paragraph("Mumbai, Maharashtra India").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph sellerContact = new Paragraph("+91 1000000000").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerHeader = new Paragraph("Dodavatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerDetail = new Paragraph(selectedFaktura.Dodavatel.Name).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerAddress = new Paragraph(selectedFaktura.Dodavatel.State).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerContact = new Paragraph($"{selectedFaktura.Dodavatel.Street}, {selectedFaktura.Dodavatel.PSC}, {selectedFaktura.Dodavatel.City}").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
 
             document.Add(sellerHeader);
             document.Add(sellerDetail);
@@ -196,11 +200,12 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(sellerContact);
 
             // Pøidání informací o zákazníkovi
-            Paragraph customerHeader = new Paragraph("Customer details:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerDetail = new Paragraph("Customer ABC").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerAddress1 = new Paragraph("R783, Rose Apartments, Santacruz (E)").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerAddress2 = new Paragraph("Mumbai 400054, Maharashtra India").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerContact = new Paragraph("+91 0000000000").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+
+            Paragraph customerHeader = new Paragraph("Odbìratel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerDetail = new Paragraph(selectedFaktura.Odberatel.Name).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress1 = new Paragraph($"Stát:{selectedFaktura.Odberatel.State}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress2 = new Paragraph($"{selectedFaktura.Odberatel.Street}, {selectedFaktura.Odberatel.PSC}, {selectedFaktura.Odberatel.City}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerContact = new Paragraph($"IÈ:{selectedFaktura.Odberatel.IC}, DIÈ:{selectedFaktura.Odberatel.DIC}").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
 
             document.Add(customerHeader);
             document.Add(customerDetail);
@@ -239,4 +244,20 @@ public partial class VydaneFaktury_Page : ContentPage
 
 
     }
+
+    //static string RemoveDiacritics(string input)
+    //{
+    //    string normalizedString = input.Normalize(NormalizationForm.FormD);
+    //    StringBuilder stringBuilder = new StringBuilder();
+
+    //    foreach (char c in normalizedString)
+    //    {
+    //        if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+    //        {
+    //            stringBuilder.Append(c);
+    //        }
+    //    }
+
+    //    return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+    //}
 }

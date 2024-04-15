@@ -28,6 +28,7 @@ public partial class PrijateFaktury_Page : ContentPage
     {
         // Získání vybraného objektu typu Odberatel
         Odberatel selectedOdberatel = forOdberatel.SelectedItem as Odberatel;
+        Odberatel selectedDodavatel = forDodavatel.SelectedItem as Odberatel;
 
         // Pokud je vybrán nìjaký objekt
         if (selectedOdberatel != null)
@@ -35,6 +36,7 @@ public partial class PrijateFaktury_Page : ContentPage
             PrijateFaktury newPrijateFaktury = new PrijateFaktury
             {
                 Odberatel = selectedOdberatel,
+                Dodavatel = selectedDodavatel,
                 CisloObjednavky = forCisloObjednavky.Text,
                 Popis = forPopis.Text,
                 Vystaveno = forVystaveno.Date.ToShortDateString(),

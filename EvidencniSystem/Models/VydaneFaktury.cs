@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
 
+        public Odberatel Dodavatel { get; set; }
+
         public Odberatel Odberatel { get; set; }
 
         public string CisloObjednavky { get; set; }
@@ -24,7 +26,7 @@
 
         public override string ToString()
         {
-            return $"{Odberatel.Name} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
+            return $"{Dodavatel.Name} {Odberatel.Name} {CisloObjednavky} {Popis} {Vystaveno} {Splatnost}  {ZpusobUhrady} {Polozky} {Mnozstvi} {Celkovacena} " ;
         }
     }
 }
