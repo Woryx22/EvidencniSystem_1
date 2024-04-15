@@ -8,6 +8,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using System.Diagnostics;
 using iText.Kernel.Pdf.Canvas.Draw;
+using QRCoder;
 
 namespace EvidencniSystem;
 
@@ -147,9 +148,32 @@ public partial class VydaneFaktury_Page : ContentPage
 
         if (selectedFaktura != null)
         {
+            // Get the account number from the input field
+            string accountNumber = selectedFaktura.Odberatel.Cislouctu;
+
+            // Construct the payment string (replace with your payment format)
+            string paymentString = $"SPD*1.0*ACC:{accountNumber}";
+
+            // Generate the QR code
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentString, QRCodeGenerator.ECCLevel.L);
+
+            // Convert QR code to PNG bytes
+            PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+            byte[] qrCodeBytes = qrCode.GetGraphic(20);
+
+            // Save the QR code as a file to Local Application Data folder
+            string imageFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
+            File.WriteAllBytes(imageFilePath, qrCodeBytes);
+
+            // Display the QR code
+            //QrCodeImage.Source = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));
+
+
+
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string filePath = Path.Combine(desktopPath, $"faktura{selectedFaktura.Id}.pdf");
-            string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ahoj.jpg");
+            string dataImagePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
             PdfWriter writer = new PdfWriter(filePath);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
@@ -193,7 +217,14 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(invoiceNo);
             document.Add(invoiceTimestamp);
 
-            
+            iText.Layout.Element.Image img = new iText.Layout.Element.Image(iText.IO.Image.ImageDataFactory
+            .Create(dataImagePath))
+            .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.RIGHT)
+            .SetHeight(200)
+            .SetWidth(200);
+            document.Add(img);
+
+
             document.Close();
             Process.Start(new ProcessStartInfo
             {

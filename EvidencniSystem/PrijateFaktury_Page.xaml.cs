@@ -21,6 +21,7 @@ public partial class PrijateFaktury_Page : ContentPage
         InitializeComponent();
         lst3.ItemsSource = _context.PrijateFaktury_.ToList(); // pøipojení zdroje dat k ListView
         forOdberatel.ItemsSource = _context.Odberatele.ToList();
+        forDodavatel.ItemsSource = _context.Odberatele.ToList();
     }
 
     private void SavePrijateFaktury(object sender, EventArgs e)
