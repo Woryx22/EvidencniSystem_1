@@ -3,6 +3,12 @@ using EvidencniSystem.Models;
 using System;
 using Microsoft.Maui.Controls;
 using EvidencniSystem;
+using iText.IO.Image;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+
+using System.Diagnostics;
 
 namespace EvidencniSystem;
 
@@ -71,5 +77,33 @@ public partial class PrijateFaktury_Page : ContentPage
     {
         lst3.ItemsSource = null;
         lst3.ItemsSource = _context.PrijateFaktury_.ToList();
+    }
+
+    private void GeneratePDF(object sender, EventArgs e)
+    {
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        string filePath = Path.Combine(desktopPath, "demo.pdf");
+        string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ahoj.jpg");
+        PdfWriter writer = new PdfWriter(filePath);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+        Paragraph header = new Paragraph("Faktura - daòový doklad")
+           .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+           .SetFontSize(20);
+
+
+        //iText.Layout.Element.Image img = new iText.Layout.Element.Image(ImageDataFactory
+        //.Create(dataPath))
+        //.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+        //document.Add(img);
+
+
+        document.Add(header);
+        document.Close();
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = filePath,
+            UseShellExecute = true
+        });
     }
 }
