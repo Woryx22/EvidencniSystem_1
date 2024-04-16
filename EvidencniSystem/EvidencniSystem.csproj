@@ -49,6 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\photo-1533135091724-62cc5402aa20.jpeg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="itext7" Version="8.0.3" />
 		<PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />

@@ -41,7 +41,6 @@ public partial class Odberatel_Page : ContentPage
             _context.SaveChanges(); // uloží zmìny do databáze !!!!!!
             refresh();
         }
-            
     }
 
     private void Smazat(object sender, EventArgs e)
