@@ -12,9 +12,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.RowSpan="1" Grid.ColumnSpan="3" Source="background_image.jpg" Aspect="AspectFill"/>
+        <Image Grid.RowSpan="1" Grid.ColumnSpan="3" Source="photo.jpeg" Aspect="AspectFill"/>
 
-        <Button Text="Odberatele" Clicked="Odberatele_Page_Clicked"
+        <Button Text="Odběratelé/Dodavatelé" Clicked="Odberatele_Page_Clicked"
                 BackgroundColor="#eb6134" TextColor="White" CornerRadius="25" FontSize="40"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Margin="50" Grid.Row="0" Grid.Column="0"/>

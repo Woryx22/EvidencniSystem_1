@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EvidencniSystem.Odberatel_Page"
-             Title="Odberatel_Page">
+             Title="Odběratelé/Dodavatelé">
     <ScrollView>
         <VerticalStackLayout
         Spacing="25"
@@ -32,7 +32,7 @@
 
             <ListView x:Name="lst" 
             WidthRequest="500"
-            Header="Odběratelé" 
+            Header="Odběratelé/Dodavatelé" 
             HorizontalOptions="Center" 
             BackgroundColor="DarkGray"
             />
