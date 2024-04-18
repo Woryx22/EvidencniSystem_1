@@ -87,94 +87,25 @@ public partial class VydaneFaktury_Page : ContentPage
     }
     private void GeneratePDF(object sender, EventArgs e)
     {
-        //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        //string filePath = Path.Combine(desktopPath, "demo.pdf");
-        //string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ahoj.jpg");
-        //PdfWriter writer = new PdfWriter(filePath);
-        //PdfDocument pdf = new PdfDocument(writer);
-        //Document document = new Document(pdf);
-        //Paragraph header = new Paragraph("Faktura - daòový doklad")
-        //   .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-        //   .SetFontSize(20);
-
-
-        ////iText.Layout.Element.Image img = new iText.Layout.Element.Image(ImageDataFactory
-        ////.Create(dataPath))
-        ////.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
-        ////document.Add(img);
-
-        //Paragraph subheader = new Paragraph("PDF CREATED USING ASP.NET C# WITH iTExT7 LIBRARY").SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER).SetFontSize(10);
-        //document.Add(subheader);
-
-        //LineSeparator ls = new LineSeparator(new SolidLine());
-        //document.Add(ls);
-
-        //Paragraph sellerHeader = new Paragraph("Sold by:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-        //Paragraph sellerDetail = new Paragraph("Seller Company").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-        //Paragraph sellerAddress = new Paragraph("Mumbai, Maharashtra India").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-        //Paragraph sellerContact = new Paragraph("+91 1000000000").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-
-        //document.Add(sellerHeader);
-        //document.Add(sellerDetail);
-        //document.Add(sellerAddress);
-        //document.Add(sellerContact);
-
-        //Paragraph customerHeader = new Paragraph("Customer details:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-        //Paragraph customerDetail = new Paragraph("Customer ABC").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-        //Paragraph customerAddress1 = new Paragraph("R783, Rose Apartments, Santacruz (E)").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-        //Paragraph customerAddress2 = new Paragraph("Mumbai 400054, Maharashtra India").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-
-        //Paragraph customerContact = new Paragraph("+91 0000000000").SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-
-        //document.Add(customerHeader);
-        //document.Add(customerDetail);
-        //document.Add(customerAddress1);
-        //document.Add(customerAddress2);
-        //document.Add(customerContact);
-
-        //Paragraph orderNo = new Paragraph("Order No:15484659").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-        //Paragraph invoiceNo = new Paragraph("Invoice No:MH-MU-1077").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-        //Paragraph invoiceTimestamp = new Paragraph("Date: 30/05/2021 04:25:37 PM").SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-
-        //document.Add(orderNo);
-        //document.Add(invoiceNo);
-        //document.Add(invoiceTimestamp);
-
-
-        //document.Add(header);
-        //document.Close();
-        //Process.Start(new ProcessStartInfo
-        //{
-        //    FileName = filePath,
-        //    UseShellExecute = true
-        //});
-
 
         // Získání vybrané faktury
         VydaneFaktury selectedFaktura = lst2.SelectedItem as VydaneFaktury;
 
         if (selectedFaktura != null)
         {
-            // Get the account number from the input field
             string accountNumber = selectedFaktura.Odberatel.Cislouctu;
 
-            // Construct the payment string (replace with your payment format)
             string paymentString = $"SPD*1.0*ACC:{accountNumber}*AM:{selectedFaktura.Celkovacena}";
 
-            // Generate the QR code
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentString, QRCodeGenerator.ECCLevel.L);
 
-            // Convert QR code to PNG bytes
             PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
             byte[] qrCodeBytes = qrCode.GetGraphic(20);
 
-            // Save the QR code as a file to Local Application Data folder
             string imageFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
             File.WriteAllBytes(imageFilePath, qrCodeBytes);
 
-            // Display the QR code
-            //QrCodeImage.Source = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));
 
 
 
@@ -191,7 +122,7 @@ public partial class VydaneFaktury_Page : ContentPage
             LineSeparator ls = new LineSeparator(new SolidLine());
             document.Add(ls);
 
-            // Pøidání informací o prodejci
+            // Pøidání informací o Dodavateli
             Paragraph sellerHeader = new Paragraph("Dodavatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
             Paragraph sellerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
             Paragraph sellerAddress = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.State + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
@@ -202,7 +133,7 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(sellerAddress);
             document.Add(sellerContact);
 
-            // Pøidání informací o zákazníkovi
+            // Pøidání informací o Odbìrateli
 
             Paragraph customerHeader = new Paragraph("Odberatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
             Paragraph customerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Odberatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
@@ -217,13 +148,23 @@ public partial class VydaneFaktury_Page : ContentPage
             document.Add(customerContact);
 
             // Pøidání informací o faktuøe
-            Paragraph orderNo = new Paragraph(RemoveDiacritics($"Order No: {selectedFaktura.CisloObjednavky}")).SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph invoiceNo = new Paragraph(RemoveDiacritics($"Invoice No: {selectedFaktura.Id}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
-            Paragraph invoiceTimestamp = new Paragraph(RemoveDiacritics($"Date: {selectedFaktura.Vystaveno}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph orderNo = new Paragraph(RemoveDiacritics($"Cislo objednavky: {selectedFaktura.CisloObjednavky}")).SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceNo = new Paragraph(RemoveDiacritics($"Vystaveno: {selectedFaktura.Vystaveno}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceTimestamp = new Paragraph(RemoveDiacritics($"Splatnost: {selectedFaktura.Splatnost}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph popis = new Paragraph(RemoveDiacritics($"Popis: {selectedFaktura.Popis}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph polozky = new Paragraph(RemoveDiacritics($"Polozky: {selectedFaktura.Polozky}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph mnozstvi = new Paragraph(RemoveDiacritics($"Mnozstvi: {selectedFaktura.Mnozstvi}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph cena = new Paragraph(RemoveDiacritics($"Cena: {selectedFaktura.Celkovacena}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph zpusobuhrady = new Paragraph(RemoveDiacritics($"Zpusob uhrady: {selectedFaktura.ZpusobUhrady}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
 
             document.Add(orderNo);
             document.Add(invoiceNo);
             document.Add(invoiceTimestamp);
+            document.Add(popis);
+            document.Add(polozky);
+            document.Add(mnozstvi);
+            document.Add(cena);
+            document.Add(zpusobuhrady);
 
             iText.Layout.Element.Image img = new iText.Layout.Element.Image(iText.IO.Image.ImageDataFactory
             .Create(dataImagePath))
