@@ -42,16 +42,37 @@
 
             <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveVydaneFaktury"/>
 
-            <ListView x:Name="lst2" 
+            <!--<ListView x:Name="lst2" 
                 WidthRequest="250"
                 Header="Studenti" 
                 HorizontalOptions="Center" 
                 BackgroundColor="LightGrey"
-                />
+                
+                />-->
+            <Label Text="Vydané faktury: " FontSize="24" TextDecorations="Underline" WidthRequest="450" HorizontalOptions="Center"/>
+            <ListView x:Name="lst2" 
+            WidthRequest="450"
+            HorizontalOptions="Center" 
+            BackgroundColor="DarkGrey">
+                <ListView.ItemTemplate>
 
-            <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
-            <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
-            <Button Text="Generovat PDF" HorizontalOptions="Center" Clicked="GeneratePDF"/>
+                    <DataTemplate>
+
+                        <ViewCell>
+                            
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding}" FontSize="18" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
+                <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
+                <Button Text="Generovat PDF" HorizontalOptions="Center" Clicked="GeneratePDF"/>
+            </HorizontalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

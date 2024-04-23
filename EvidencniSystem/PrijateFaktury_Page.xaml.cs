@@ -9,6 +9,10 @@ using iText.Layout;
 using iText.Layout.Element;
 
 using System.Diagnostics;
+using iText.Kernel.Pdf.Canvas.Draw;
+using QRCoder;
+using System.Globalization;
+using System.Text;
 
 namespace EvidencniSystem;
 
@@ -84,29 +88,120 @@ public partial class PrijateFaktury_Page : ContentPage
 
     private void GeneratePDF(object sender, EventArgs e)
     {
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        string filePath = Path.Combine(desktopPath, "demo.pdf");
-        string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ahoj.jpg");
-        PdfWriter writer = new PdfWriter(filePath);
-        PdfDocument pdf = new PdfDocument(writer);
-        Document document = new Document(pdf);
-        Paragraph header = new Paragraph("Faktura - daòový doklad")
-           .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-           .SetFontSize(20);
+        // Získání vybrané faktury
+        PrijateFaktury selectedFaktura = lst3.SelectedItem as PrijateFaktury;
 
-
-        //iText.Layout.Element.Image img = new iText.Layout.Element.Image(ImageDataFactory
-        //.Create(dataPath))
-        //.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
-        //document.Add(img);
-
-
-        document.Add(header);
-        document.Close();
-        Process.Start(new ProcessStartInfo
+        if (selectedFaktura != null)
         {
-            FileName = filePath,
-            UseShellExecute = true
-        });
+            string accountNumber = selectedFaktura.Dodavatel.Cislouctu;
+
+            string paymentString = $"SPD*1.0*ACC:{accountNumber}*AM:{selectedFaktura.Celkovacena}";
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(paymentString, QRCodeGenerator.ECCLevel.L);
+
+            PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+            byte[] qrCodeBytes = qrCode.GetGraphic(20);
+
+            string imageFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
+            File.WriteAllBytes(imageFilePath, qrCodeBytes);
+
+
+
+
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string filePath = Path.Combine(desktopPath, $"faktura{selectedFaktura.Id}.pdf");
+            string dataImagePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
+            PdfWriter writer = new PdfWriter(filePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+            Paragraph header = new Paragraph("Faktura - doklad")
+               .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+               .SetFontSize(20);
+            document.Add(header);
+            LineSeparator ls = new LineSeparator(new SolidLine());
+            document.Add(ls);
+
+            // Pøidání informací o Dodavateli
+            Paragraph sellerHeader = new Paragraph("Dodavatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerAddress = new Paragraph(RemoveDiacritics(selectedFaktura.Dodavatel.State + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph sellerContact = new Paragraph(RemoveDiacritics($"{selectedFaktura.Dodavatel.Street}, {selectedFaktura.Dodavatel.PSC}, {selectedFaktura.Dodavatel.City}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+
+            document.Add(sellerHeader);
+            document.Add(sellerDetail);
+            document.Add(sellerAddress);
+            document.Add(sellerContact);
+
+            // Pøidání informací o Odbìrateli
+
+            Paragraph customerHeader = new Paragraph("Odberatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Odberatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress1 = new Paragraph(RemoveDiacritics($"Stat:{selectedFaktura.Odberatel.State}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerAddress2 = new Paragraph(RemoveDiacritics($"{selectedFaktura.Odberatel.Street}, {selectedFaktura.Odberatel.PSC}, {selectedFaktura.Odberatel.City}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerContact = new Paragraph(RemoveDiacritics($"IC:{selectedFaktura.Odberatel.IC}, DIC:{selectedFaktura.Odberatel.DIC}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+
+            document.Add(customerHeader);
+            document.Add(customerDetail);
+            document.Add(customerAddress1);
+            document.Add(customerAddress2);
+            document.Add(customerContact);
+
+            // Pøidání informací o faktuøe
+            Paragraph orderNo = new Paragraph(RemoveDiacritics($"Cislo objednavky: {selectedFaktura.CisloObjednavky}")).SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceNo = new Paragraph(RemoveDiacritics($"Vystaveno: {selectedFaktura.Vystaveno}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph invoiceTimestamp = new Paragraph(RemoveDiacritics($"Splatnost: {selectedFaktura.Splatnost}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph popis = new Paragraph(RemoveDiacritics($"Popis: {selectedFaktura.Popis}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph polozky = new Paragraph(RemoveDiacritics($"Polozky: {selectedFaktura.Polozky}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph mnozstvi = new Paragraph(RemoveDiacritics($"Mnozstvi: {selectedFaktura.Mnozstvi}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph cena = new Paragraph(RemoveDiacritics($"Cena: {selectedFaktura.Celkovacena}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+            Paragraph zpusobuhrady = new Paragraph(RemoveDiacritics($"Zpusob uhrady: {selectedFaktura.ZpusobUhrady}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT);
+
+            document.Add(orderNo);
+            document.Add(invoiceNo);
+            document.Add(invoiceTimestamp);
+            document.Add(popis);
+            document.Add(polozky);
+            document.Add(mnozstvi);
+            document.Add(cena);
+            document.Add(zpusobuhrady);
+
+            iText.Layout.Element.Image img = new iText.Layout.Element.Image(iText.IO.Image.ImageDataFactory
+            .Create(dataImagePath))
+            .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.RIGHT)
+            .SetHeight(200)
+            .SetWidth(200);
+            document.Add(img);
+
+
+            document.Close();
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
+        }
+        else
+        {
+            DisplayAlert("Chyba", "Není vybrána faktura", "Ok");
+        }
+
+
+    }
+
+    static string RemoveDiacritics(string input)
+    {
+        string normalizedString = input.Normalize(NormalizationForm.FormD);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        foreach (char c in normalizedString)
+        {
+            if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
+
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
 }

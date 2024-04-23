@@ -10,7 +10,6 @@ public partial class DetailFakturyPage : ContentPage
     public DetailFakturyPage(int id, MyContext context)
     {
         _context = context;
-        //Odberatel s = _context.Odberatele.FirstOrDefault(x => x.Id == id); // lambda varianta
 
         VydaneFaktury f = (from VydaneFaktury in context.VydaneFaktury_
                        where VydaneFaktury.Id == id
