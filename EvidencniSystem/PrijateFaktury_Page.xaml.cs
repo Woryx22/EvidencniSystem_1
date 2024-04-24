@@ -106,9 +106,6 @@ public partial class PrijateFaktury_Page : ContentPage
             string imageFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
             File.WriteAllBytes(imageFilePath, qrCodeBytes);
 
-
-
-
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string filePath = Path.Combine(desktopPath, $"faktura{selectedFaktura.Id}.pdf");
             string dataImagePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "qrcode.png");
@@ -185,8 +182,6 @@ public partial class PrijateFaktury_Page : ContentPage
         {
             DisplayAlert("Chyba", "Není vybrána faktura", "Ok");
         }
-
-
     }
 
     static string RemoveDiacritics(string input)
