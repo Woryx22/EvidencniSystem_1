@@ -59,7 +59,7 @@
                 <Picker.Items>
                     <x:String>Převodem</x:String>
                     <x:String>Kartou</x:String>
-                    <x:String>Hotově</x:String>++
+                    <x:String>Hotově</x:String>
                 </Picker.Items>
             </Picker>
 
