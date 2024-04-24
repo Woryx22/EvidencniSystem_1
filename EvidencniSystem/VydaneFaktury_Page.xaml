@@ -2,65 +2,89 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EvidencniSystem.VydaneFaktury_Page"
-             Title="VydaneFaktury">
+             Title="Vydane Faktury">
     <ScrollView>
-        <VerticalStackLayout
-     Spacing="25"
-     Padding="30,0"
-     VerticalOptions="Center">
+        <Grid Padding="30,0"
+              RowSpacing="20"
+              ColumnSpacing="20"
+              VerticalOptions="Start">
 
-            <StackLayout Spacing="10" WidthRequest="250" HorizontalOptions="Center">
-                <Label>Dodavatel:</Label>
-                <Picker x:Name="forDodavatel" WidthRequest="250"/>
-                <Label>Odběratel:</Label>
-                <Picker x:Name="forOdberatel" WidthRequest="250"/>
-                <Label>Číslo objednávky:</Label>
-                <Entry x:Name="forCisloObjednavky"/>
-                <Label>Popis:</Label>
-                <Entry x:Name="forPopis"/>
-                <Label>Vystaveno:</Label>
-                <DatePicker x:Name="forVystaveno"/>
-                <Label>Splatnost:</Label>
-                <DatePicker x:Name="forSplatnost"/>
-                <Label>Způsob úhrady:</Label>
-                <Picker x:Name="forZpusobUhrady">
-                    <Picker.Items>
-                        <x:String>Převodem</x:String>
-                        <x:String>Kartou</x:String>
-                        <x:String>Hotově</x:String>
-                    </Picker.Items>
-                </Picker>
-                <Label>Položky:</Label>
-                <Entry x:Name="forPolozky"/>
-                <Label>Množství:</Label>
-                <Entry x:Name="forMnozstvi"/>
-                <Label>Celková cena:</Label>
-                <Entry x:Name="forCelkovacena"/>
-            </StackLayout>
+            <Grid.RowDefinitions>
+               
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+             
+            </Grid.RowDefinitions>
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
+            <Label Grid.Row="0" Grid.Column="0" Text="Dodavatel:" FontSize="Medium" />
+            <Picker Grid.Row="0" Grid.Column="1" x:Name="forDodavatel" />
 
-            <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveVydaneFaktury"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Odběratel:" FontSize="Medium" />
+            <Picker Grid.Row="1" Grid.Column="1" x:Name="forOdberatel" />
 
-            <!--<ListView x:Name="lst2" 
-                WidthRequest="250"
-                Header="Studenti" 
-                HorizontalOptions="Center" 
-                BackgroundColor="LightGrey"
-                
-                />-->
-            <Label Text="Vydané faktury: " FontSize="24" TextDecorations="Underline" WidthRequest="450" HorizontalOptions="Center"/>
-            <ListView x:Name="lst2" 
-            WidthRequest="450"
-            HorizontalOptions="Center" 
-            BackgroundColor="DarkGrey">
+            <Label Grid.Row="2" Grid.Column="0" Text="Číslo objednávky:" FontSize="Medium" />
+            <Entry Grid.Row="2" Grid.Column="1" x:Name="forCisloObjednavky" />
+
+            <Label Grid.Row="3" Grid.Column="0" Text="Popis:" FontSize="Medium" />
+            <Entry Grid.Row="3" Grid.Column="1" x:Name="forPopis" />
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Vystaveno:" FontSize="Medium" />
+            <DatePicker Grid.Row="4" Grid.Column="1" x:Name="forVystaveno" />
+
+            <Label Grid.Row="5" Grid.Column="0" Text="Splatnost:" FontSize="Medium" />
+            <DatePicker Grid.Row="5" Grid.Column="1" x:Name="forSplatnost" />
+
+            <Label Grid.Row="6" Grid.Column="0" Text="Způsob úhrady:" FontSize="Medium" />
+            <Picker Grid.Row="6" Grid.Column="1" x:Name="forZpusobUhrady">
+                <Picker.Items>
+                    <x:String>Převodem</x:String>
+                    <x:String>Kartou</x:String>
+                    <x:String>Hotově</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Grid.Row="7" Grid.Column="0" Text="Položky:" FontSize="Medium" />
+            <Entry Grid.Row="7" Grid.Column="1" x:Name="forPolozky" />
+
+            <Label Grid.Row="8" Grid.Column="0" Text="Množství:" FontSize="Medium" />
+            <Entry Grid.Row="8" Grid.Column="1" x:Name="forMnozstvi" />
+
+            <Label Grid.Row="9" Grid.Column="0" Text="Celková cena:" FontSize="Medium" />
+            <Entry Grid.Row="9" Grid.Column="1" x:Name="forCelkovacena" />
+
+            <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Text="Uložit"
+                    BackgroundColor="#2196F3" TextColor="White" CornerRadius="20"
+                    HorizontalOptions="FillAndExpand" Clicked="SaveVydaneFaktury"/>
+
+            <Label Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Text="Vydané faktury: "
+                   FontSize="24" TextDecorations="Underline" HorizontalOptions="Center"/>
+
+            <ListView x:Name="lst2" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2"
+                      BackgroundColor="#F5F5F5" SeparatorColor="#BDBDBD">
                 <ListView.ItemTemplate>
-
                     <DataTemplate>
-
                         <ViewCell>
-                            
-                            <StackLayout Padding="10">
+                            <StackLayout Padding="10" BackgroundColor="White">
                                 <Label Text="{Binding}" FontSize="18" />
                             </StackLayout>
                         </ViewCell>
@@ -68,12 +92,12 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
-                <Button Text="Detail" HorizontalOptions="Center" x:Name="detailBTN" Clicked="Detajly"/>
-                <Button Text="Generovat PDF" HorizontalOptions="Center" Clicked="GeneratePDF"/>
+          
+            <HorizontalStackLayout Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Spacing="10">
+                <Button Text="Smazat" Clicked="Smazat" BackgroundColor="#F44336" TextColor="White" CornerRadius="20"/>
+                <Button Text="Detail" x:Name="detailBTN" Clicked="Detajly" BackgroundColor="#4CAF50" TextColor="White" CornerRadius="20"/>
+                <Button Text="Generovat PDF" Clicked="GeneratePDF" BackgroundColor="#FFC107" TextColor="White" CornerRadius="20"/>
             </HorizontalStackLayout>
-
-        </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

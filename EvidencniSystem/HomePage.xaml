@@ -1,9 +1,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EvidencniSystem.HomePage"
-             Title="HomePage">
+             Title="Fakturační Systém">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -12,22 +14,28 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.RowSpan="1" Grid.ColumnSpan="3" Source="photo.jpeg" Aspect="AspectFill"/>
+        <Image Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="photo.jpeg" Aspect="AspectFill"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+               Text="Fakturační Systém" FontSize="80" FontAttributes="Bold"
+               TextColor="White" HorizontalOptions="Center"
+               VerticalOptions="Center" 
+               TextDecorations="Underline" />
 
         <Button Text="Odběratelé/Dodavatelé" Clicked="Odberatele_Page_Clicked"
-                BackgroundColor="#eb6134" TextColor="White" CornerRadius="25" FontSize="40"
+                BackgroundColor="Gray" TextColor="White" CornerRadius="25" FontSize="30"
+                BorderColor="DarkGray" BorderWidth="2"
                 HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="50" Grid.Row="0" Grid.Column="0"/>
+                Margin="50" Grid.Row="2" Grid.Column="0"/>
         <Button Text="Vydané faktury" Clicked="Vydane_faktury_Clicked"
-                BackgroundColor="#eb6134" TextColor="White" CornerRadius="25" FontSize="40"
+                BackgroundColor="Gray" TextColor="White" CornerRadius="25" FontSize="40"
+                BorderColor="DarkGray" BorderWidth="2"
                 HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="50" Grid.Row="0" Grid.Column="1"/>
+                Margin="50" Grid.Row="2" Grid.Column="1"/>
         <Button Text="Přijaté faktury" Clicked="Prijate_faktury_Clicked"
-                BackgroundColor="#eb6134" TextColor="White" CornerRadius="25" FontSize="40"
+                BackgroundColor="Gray" TextColor="White" CornerRadius="25" FontSize="40"
+                BorderColor="DarkGray" BorderWidth="2"
                 HorizontalOptions="Center" VerticalOptions="Center"
-                Margin="50" Grid.Row="0" Grid.Column="2"/>
+                Margin="50" Grid.Row="2" Grid.Column="2"/>
     </Grid>
 </ContentPage>
-    
-    
-    

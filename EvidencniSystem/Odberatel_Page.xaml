@@ -4,41 +4,78 @@
              x:Class="EvidencniSystem.Odberatel_Page"
              Title="Odběratelé/Dodavatelé">
     <ScrollView>
-        <VerticalStackLayout
-        Spacing="25"
-        Padding="30,0"
-        VerticalOptions="Center">
+        <Grid Padding="30,0"
+              RowSpacing="20"
+              ColumnSpacing="20"
+              VerticalOptions="Start">
 
-            <StackLayout WidthRequest="250" HorizontalOptions="Center" Spacing="10">
-                <Label>Jméno/Firma:</Label>
-                <Entry x:Name="forName"/>
-                <Label>Stát:</Label>
-                <Entry x:Name="forState"/>
-                <Label>IČ:</Label>
-                <Entry x:Name="forIC"/>
-                <Label>DIČ:</Label>
-                <Entry x:Name="forDIC"/>
-                <Label>Ulice:</Label>
-                <Entry x:Name="forStreet"/>
-                <Label>Město:</Label>
-                <Entry x:Name="forCity"/>
-                <Label>PSČ:</Label>
-                <Entry x:Name="forPSC"/>
-                <Label>Číslo účtu:</Label>
-                <Entry x:Name="forCislouctu"/>
-            </StackLayout>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <Button Text="Uložit" HorizontalOptions="Center" Clicked="SaveOdberatel"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <ListView x:Name="lst" 
-            WidthRequest="500"
-            Header="Odběratelé/Dodavatelé" 
-            HorizontalOptions="Center" 
-            BackgroundColor="DarkGray"
-            />
+            <Label Grid.Row="0" Grid.Column="0" Text="Jméno/Firma:" FontSize="Medium" />
+            <Entry Grid.Row="0" Grid.Column="1" x:Name="forName" />
 
-            <Button Text="Smazat" HorizontalOptions="Center" Clicked="Smazat"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Stát:" FontSize="Medium" />
+            <Entry Grid.Row="1" Grid.Column="1" x:Name="forState" />
 
-        </VerticalStackLayout>
+            <Label Grid.Row="2" Grid.Column="0" Text="IČ:" FontSize="Medium" />
+            <Entry Grid.Row="2" Grid.Column="1" x:Name="forIC" />
+
+            <Label Grid.Row="3" Grid.Column="0" Text="DIČ:" FontSize="Medium" />
+            <Entry Grid.Row="3" Grid.Column="1" x:Name="forDIC" />
+
+            <Label Grid.Row="4" Grid.Column="0" Text="Ulice:" FontSize="Medium" />
+            <Entry Grid.Row="4" Grid.Column="1" x:Name="forStreet" />
+
+            <Label Grid.Row="5" Grid.Column="0" Text="Město:" FontSize="Medium" />
+            <Entry Grid.Row="5" Grid.Column="1" x:Name="forCity" />
+
+            <Label Grid.Row="6" Grid.Column="0" Text="PSČ:" FontSize="Medium" />
+            <Entry Grid.Row="6" Grid.Column="1" x:Name="forPSC" />
+
+            <Label Grid.Row="7" Grid.Column="0" Text="Číslo účtu:" FontSize="Medium" />
+            <Entry Grid.Row="7" Grid.Column="1" x:Name="forCislouctu" />
+
+            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Uložit"
+                    BackgroundColor="#2196F3" TextColor="White" CornerRadius="20"
+                    HorizontalOptions="FillAndExpand" />
+
+            <Label Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="Odběratelé/Dodavatelé:"
+                   FontSize="Large" TextDecorations="Underline" HorizontalOptions="Center"/>
+
+            <ListView x:Name="lst" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                      BackgroundColor="#F5F5F5" SeparatorColor="#BDBDBD">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10" BackgroundColor="White">
+                                <Label Text="{Binding}" FontSize="Medium" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Text="Smazat"
+                    BackgroundColor="#F44336" TextColor="White" CornerRadius="20"
+                    HorizontalOptions="FillAndExpand" />
+        </Grid>
     </ScrollView>
 </ContentPage>
