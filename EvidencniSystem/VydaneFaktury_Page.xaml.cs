@@ -35,7 +35,7 @@ public partial class VydaneFaktury_Page : ContentPage
         Odberatel selectedDodavatel = forDodavatel.SelectedItem as Odberatel;
 
         // Pokud je vybrán nìjaký objekt
-        if (selectedOdberatel != null)
+        if (selectedOdberatel != null && selectedDodavatel != null)
         {
             VydaneFaktury newVydaneFaktury = new VydaneFaktury
             {
@@ -93,7 +93,9 @@ public partial class VydaneFaktury_Page : ContentPage
 
         if (selectedFaktura != null)
         {
-            string accountNumber = selectedFaktura.Dodavatel.Cislouctu;
+            string accountNumberMezery = selectedFaktura.Dodavatel.Cislouctu;
+
+            string accountNumber = accountNumberMezery.Replace(" ", "");
 
             string paymentString = $"SPD*1.0*ACC:{accountNumber}*AM:{selectedFaktura.Celkovacena}";
 

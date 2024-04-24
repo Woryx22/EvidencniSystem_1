@@ -36,10 +36,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Text="Dodavatel:" FontSize="Medium" />
-            <Picker Grid.Row="0" Grid.Column="1" x:Name="forDodavatel" />
+            <Label Grid.Row="0" Grid.Column="0" Text="*Dodavatel:" FontSize="Medium" Margin="0,20,0,0"/>
+            <Picker Grid.Row="0" Grid.Column="1" x:Name="forDodavatel" Margin="0,20,0,0"/>
 
-            <Label Grid.Row="1" Grid.Column="0" Text="Odběratel:" FontSize="Medium" />
+            <Label Grid.Row="1" Grid.Column="0" Text="*Odběratel:" FontSize="Medium" />
             <Picker Grid.Row="1" Grid.Column="1" x:Name="forOdberatel" />
 
             <Label Grid.Row="2" Grid.Column="0" Text="Číslo objednávky:" FontSize="Medium" />
@@ -59,7 +59,7 @@
                 <Picker.Items>
                     <x:String>Převodem</x:String>
                     <x:String>Kartou</x:String>
-                    <x:String>Hotově</x:String>
+                    <x:String>Hotově</x:String>++
                 </Picker.Items>
             </Picker>
 
@@ -84,7 +84,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" BackgroundColor="White">
+                            <StackLayout Padding="10" BackgroundColor="Gray">
                                 <Label Text="{Binding}" FontSize="18" />
                             </StackLayout>
                         </ViewCell>

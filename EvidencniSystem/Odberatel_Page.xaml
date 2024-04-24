@@ -50,10 +50,10 @@
             <Label Grid.Row="6" Grid.Column="0" Text="PSČ:" FontSize="Medium" />
             <Entry Grid.Row="6" Grid.Column="1" x:Name="forPSC" />
 
-            <Label Grid.Row="7" Grid.Column="0" Text="Číslo účtu:" FontSize="Medium" />
+            <Label Grid.Row="7" Grid.Column="0" Text="IBAN:" FontSize="Medium" />
             <Entry Grid.Row="7" Grid.Column="1" x:Name="forCislouctu" />
 
-            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Uložit"
+            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Text="Uložit" Clicked="SaveOdberatel"
                     BackgroundColor="#2196F3" TextColor="White" CornerRadius="20"
                     HorizontalOptions="FillAndExpand" />
 
@@ -65,7 +65,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10" BackgroundColor="White">
+                            <StackLayout Padding="10" BackgroundColor="Gray">
                                 <Label Text="{Binding}" FontSize="Medium" />
                             </StackLayout>
                         </ViewCell>
@@ -73,7 +73,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Text="Smazat"
+            <Button Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Text="Smazat" Clicked="Smazat"
                     BackgroundColor="#F44336" TextColor="White" CornerRadius="20"
                     HorizontalOptions="FillAndExpand" />
         </Grid>

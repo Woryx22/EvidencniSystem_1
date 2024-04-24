@@ -35,7 +35,7 @@ public partial class PrijateFaktury_Page : ContentPage
         Odberatel selectedDodavatel = forDodavatel.SelectedItem as Odberatel;
 
         // Pokud je vybrán nìjaký objekt
-        if (selectedOdberatel != null )
+        if (selectedOdberatel != null && selectedDodavatel != null)
         {
             PrijateFaktury newPrijateFaktury = new PrijateFaktury
             {
@@ -136,7 +136,7 @@ public partial class PrijateFaktury_Page : ContentPage
             // Pøidání informací o Odbìrateli
 
             Paragraph customerHeader = new Paragraph("Odberatel:").SetBold().SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
-            Paragraph customerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Odberatel.Name + " ")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
+            Paragraph customerDetail = new Paragraph(RemoveDiacritics(selectedFaktura.Odberatel.Name)).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
             Paragraph customerAddress1 = new Paragraph(RemoveDiacritics($"Stat:{selectedFaktura.Odberatel.State}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
             Paragraph customerAddress2 = new Paragraph(RemoveDiacritics($"{selectedFaktura.Odberatel.Street}, {selectedFaktura.Odberatel.PSC}, {selectedFaktura.Odberatel.City}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);
             Paragraph customerContact = new Paragraph(RemoveDiacritics($"IC:{selectedFaktura.Odberatel.IC}, DIC:{selectedFaktura.Odberatel.DIC}")).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT);

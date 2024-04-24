@@ -19,9 +19,9 @@ public partial class Odberatel_Page : ContentPage
 
     private void SaveOdberatel(object sender, EventArgs e)
     {
-        if (forName.Text == "")
+        if (forName.Text == "" || forCislouctu.Text == "")
         {
-            DisplayAlert("Chyba", "Musíte zadat jméno", "Ok");
+            DisplayAlert("Chyba", "Musíte zadat jméno a èíslo úètu", "Ok");
         }
         else
             {
