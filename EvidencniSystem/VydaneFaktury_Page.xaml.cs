@@ -57,7 +57,7 @@ public partial class VydaneFaktury_Page : ContentPage
         }
         else
         {
-            //bleeh
+            DisplayAlert("Chybka", "Vyplòte povinná pole", "Ok");
         }
     }
 
@@ -93,7 +93,7 @@ public partial class VydaneFaktury_Page : ContentPage
 
         if (selectedFaktura != null)
         {
-            string accountNumber = selectedFaktura.Odberatel.Cislouctu;
+            string accountNumber = selectedFaktura.Dodavatel.Cislouctu;
 
             string paymentString = $"SPD*1.0*ACC:{accountNumber}*AM:{selectedFaktura.Celkovacena}";
 

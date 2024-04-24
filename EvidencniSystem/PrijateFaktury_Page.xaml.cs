@@ -35,7 +35,7 @@ public partial class PrijateFaktury_Page : ContentPage
         Odberatel selectedDodavatel = forDodavatel.SelectedItem as Odberatel;
 
         // Pokud je vybrán nìjaký objekt
-        if (selectedOdberatel != null)
+        if (selectedOdberatel != null )
         {
             PrijateFaktury newPrijateFaktury = new PrijateFaktury
             {
@@ -57,7 +57,7 @@ public partial class PrijateFaktury_Page : ContentPage
         }
         else
         {
-            //bleeh
+            DisplayAlert("Chybka", "Vyplòte povinná pole", "Ok");
         }
     }
 
